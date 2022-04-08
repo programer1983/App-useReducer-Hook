@@ -1,7 +1,13 @@
 import {useState, useReducer} from "react"
 import './App.css';
 
-const initialState = 0
+const initialState = [
+  {
+    id: Date.now(), 
+    name: "Dimon", 
+    email: "dimon@gmail.com"
+  }
+]
 
 function reducer(state, action) {
   switch(action.type){
@@ -16,22 +22,27 @@ function reducer(state, action) {
 
 
 function App() {
-  // const [counter, setCounter] = useState(0)
   const [state, dispatch] = useReducer(reducer, initialState)
-
-  // const incremaent = () => {
-  //   setCounter(counter + 1) 
-  // }
-
-  // const decremaent = () => {
-  //   setCounter(counter - 1) 
-  // }
-
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
 
   return (
     <div className="App border">
       <h1>useReducer Hook</h1>
-      <h2>{state}</h2>
+      <form>
+        <input 
+           type="text" 
+           placeholder="name" 
+           value={name}
+           onChange={(e) => setName(e.target.value)}
+        />
+         <input 
+           type="text" 
+           placeholder="email" 
+           value={email}
+           onChange={(e) => setEmail(e.target.value)}
+        />
+      </form>
       <button onClick={() => dispatch({type: "increment"})}>Incremaent</button>
       <button onClick={() => dispatch({type: "decrement"})}>Decremaent</button>
     </div>
