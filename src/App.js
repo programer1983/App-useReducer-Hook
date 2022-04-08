@@ -14,7 +14,9 @@ function reducer(state, action) {
     case "add":
       return [...state, action.payload]
     case "delete":
-      return state - 1
+      return state.filter((contact) => {
+        return contact.id !== action.payload.id
+      })
     default: 
        throw new Error()
   }
@@ -64,8 +66,15 @@ function App() {
           {state.map((contact) => {
             return (
               <li key={contact.id}>
-                {contact.name}
-                {contact.email}
+                <h2>{contact.name}</h2>
+                <h2>{contact.email}</h2>
+                <div>
+                  <button 
+                    onClick={() => dispatch({type: "delete", payload: {id: contact.id}})}
+                    >
+                      Delete
+                  </button>
+                </div>
               </li>
             )
           })}
