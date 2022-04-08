@@ -12,7 +12,7 @@ const initialState = [
 function reducer(state, action) {
   switch(action.type){
     case "add":
-      return state + 1
+      return [...state, action.payload]
     case "delete":
       return state - 1
     default: 
@@ -27,8 +27,16 @@ function App() {
   const [email, setEmail] = useState("")
   console.log(state)
 
-  const addContact = () => {
-
+  const addContact = (e) => {
+    e.preventDefault()
+    const contact = {
+      id: Date.now(),
+      name,
+      email
+    }
+    setName("")
+    setEmail("")
+    dispatch({type: "add", payload: contact})
   }
 
   return (
@@ -57,6 +65,7 @@ function App() {
             return (
               <li key={contact.id}>
                 {contact.name}
+                {contact.email}
               </li>
             )
           })}
